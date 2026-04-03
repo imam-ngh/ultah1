@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: reny-birthday
-    runtime: php
-    buildCommand: composer install --no-dev
-    startCommand: php -S 0.0.0.0:10000
-    envVars:
-      - key: APP_ENV
-        value: production
