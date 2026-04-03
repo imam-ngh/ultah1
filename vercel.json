@@ -2,14 +2,14 @@
   "buildCommand": "composer install",
   "outputDirectory": "public",
   "functions": {
-    "index.php": {
-      "runtime": "php-8.2"
+    "api/index.php": {
+      "runtime": "now-php@8.2"
     }
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.php?$1"
+      "dest": "/api/index.php?$1"
     }
   ],
   "env": {
