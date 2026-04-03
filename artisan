@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Simple Artisan replacement for serving the application
+ */
+
+if (php_sapi_name() !== 'cli') {
+    exit('This is a CLI tool only.');
+}
+
+$commands = [
+    'serve' => '\Server::handle',
+    'key:generate' => '\KeyGenerator::handle',
+];
+
+$command = $argv[1] ?? 'help';
+$options = array_slice($argv, 2);
+
+// Extract port if provided
+$port = 8000;
+if (($key = array_search('--port', $options)) !== false) {
+    $port = $options[$key + 1] ?? 8000;
+}
+
+if ($command === 'serve') {
+    echo "Starting development server...\n";
+    echo "🚀 Server running on: http://localhost:$port\n";
+    echo "Press Ctrl+C to stop\n\n";
+    
+    // Try to use built-in PHP server
+    exec("cd " . escapeshellarg(dirname(__FILE__)) . " && php -S localhost:$port");
+} elseif ($command === 'key:generate') {
+    $key = 'base64:' . base64_encode(random_bytes(32));
+    file_put_contents('.env', str_replace(
+        'APP_KEY=',
+        'APP_KEY=' . $key,
+        file_get_contents('.env')
+    ));
+    echo "✓ Application key set successfully.\n";
+} else {
+    echo "Available commands:\n";
+    echo "  serve                  Start development server\n";
+    echo "  key:generate           Generate application key\n";
+}
