@@ -1,5 +1,4 @@
 {
-  "buildCommand": "composer install",
   "outputDirectory": "public",
   "routes": [
     {
