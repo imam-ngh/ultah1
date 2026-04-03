@@ -1,0 +1,9 @@
+{
+  "runtime": "now-php@8.2",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/index.php"
+    }
+  ]
+}
